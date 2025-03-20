@@ -33,14 +33,8 @@ namespace ShopApp.Core.Logic.BLoC.Discounts.Abstract
             List<D> filtered = [.. discounts.Where(d => strategy.Predicates.All(p => p(d)))];
 
 
-            IEnumerable<D>? ordered = OrderFilteredDiscounts(strategy.ValidFromSelector, filtered);
 
-            ordered = OrderFilteredDiscounts(strategy.ValidToSelector, ordered ?? filtered);
-            ordered = OrderFilteredDiscounts(strategy.ValueCategorySelector, ordered ?? filtered);
-            ordered = OrderFilteredDiscounts(strategy.ValueSelector, ordered ?? filtered);
-            ordered = OrderFilteredDiscounts(strategy.ValueValueSelector, ordered ?? filtered);
-
-            return ordered ?? filtered;
+            return filtered ;
         }
 
         protected static D SelectTopDiscountByStrategy(IDiscountsStrategy strategy, IEnumerable<D> discounts)

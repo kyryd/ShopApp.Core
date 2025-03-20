@@ -60,23 +60,8 @@ namespace ShopApp.Core.Logic.Tests.DataSources
 
         public static IDiscountsStrategyProvider MockStrategyProviderWith4PredicatesAnd2ValueSelectors()
         {
-            Func<IEnumerable<IDiscount>, decimal>? ValueValueSelector = new Func<IEnumerable<IDiscount>, decimal>(d => d.Min(d => d.Value.Value));
-
-
-            //Func<IEnumerable<IDiscount>, DateOnly>? ValidFromSelector = new Func<IEnumerable<IDiscount>, DateOnly>(d => d.Min(d => d.ValidFrom));
-            //Func<IEnumerable<IDiscount>, DateOnly>? ValidToSelector = new Func<IEnumerable<IDiscount>, DateOnly>(d => d.Max(d => d.ValidTo));
-
-            //Func<IEnumerable<IDiscount>, IDecimalValue>? ValueSelector = new Func<IEnumerable<IDiscount>, IDecimalValue>(d => d.));
-            //Func<IEnumerable<IDiscount>, decimal>? ValueValueSelector { get; }
-            //Func<IEnumerable<IDiscount>, ValueCategory>? ValueCategorySelector { get; }
-
-            //IDiscount MaxAbsoluteDicount { get; }
-            //IDiscount MaxPercentDiscount { get; }
-
             var discountStrategy = new Mock<IDiscountsStrategy>();
             discountStrategy.Setup(ds => ds.Predicates).Returns(MockPredicates());
-
-            //discountStrategy.Setup(ds => ds.ValueValueSelector).Returns(ValueValueSelector);
 
             discountStrategy.Setup(ds => ds.MaxPercentDiscount).Returns(new OrderDiscount(
                 DiscountType.Aggregated,
@@ -84,8 +69,6 @@ namespace ShopApp.Core.Logic.Tests.DataSources
                 ValidUntill: DateOnly.MaxValue,
                 Value: new DecimalValue(20m, ValueCategory.percentage)));
 
-            //discountStrategy.Setup(ds => ds.ValidFromSelector).Returns(ValidFromSelector);
-            //discountStrategy.Setup(ds => ds.ValidToSelector).Returns(ValidToSelector);
 
             var strategyProvider = new Mock<IDiscountsStrategyProvider>();
             strategyProvider.Setup(sp => sp.Strategy).Returns(discountStrategy.Object);
