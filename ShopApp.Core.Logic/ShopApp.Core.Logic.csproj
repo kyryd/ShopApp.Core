@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Shop.App.RepositoryAndServicies\RepositoryAndServicies.csproj" />
     <ProjectReference Include="..\ShopApp.Core.Models\ShopApp.Core.Models.csproj" />
   </ItemGroup>
