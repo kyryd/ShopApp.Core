@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Shop.App.RepositoryAndServicies\RepositoryAndServicies.csproj" />
     <ProjectReference Include="..\ShopApp.Core.Models\ShopApp.Core.Models.csproj" />
   </ItemGroup>
 

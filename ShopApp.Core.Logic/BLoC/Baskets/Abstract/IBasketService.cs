@@ -5,8 +5,8 @@ namespace ShopApp.Core.Logic.BLoC.Baskets.Abstract
 {
     interface IBasketService
     {
-        public Task<IBasket> CreateBasket(IClient client);
-        public Task<IBasket> RemoveBasket(IClient client);
+        public Task<IBasket?> CreateBasket(IClient client);
+        public Task<IBasket?> RemoveBasket(IClient client);
         //public Task<IBasket> GetBasket(int id);
         //public Task<IBasket> GetBasket(IClient client);
 
