@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopApp.Core.Logic", "ShopA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopApp.Core.Logic.Tests", "ShopApp.Core.Logic.Tests\ShopApp.Core.Logic.Tests.csproj", "{26353E05-36C1-4FBC-A2D0-4A697F181EB7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositoryAndServicies.Tests", "RepositoryAndServicies.Tests\RepositoryAndServicies.Tests.csproj", "{20940BDC-FAD9-40FF-9FBC-A8812346BDCD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,18 @@ Global
 		{26353E05-36C1-4FBC-A2D0-4A697F181EB7}.Release|x64.Build.0 = Release|Any CPU
 		{26353E05-36C1-4FBC-A2D0-4A697F181EB7}.Release|x86.ActiveCfg = Release|Any CPU
 		{26353E05-36C1-4FBC-A2D0-4A697F181EB7}.Release|x86.Build.0 = Release|Any CPU
+		{20940BDC-FAD9-40FF-9FBC-A8812346BDCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20940BDC-FAD9-40FF-9FBC-A8812346BDCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20940BDC-FAD9-40FF-9FBC-A8812346BDCD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{20940BDC-FAD9-40FF-9FBC-A8812346BDCD}.Debug|x64.Build.0 = Debug|Any CPU
+		{20940BDC-FAD9-40FF-9FBC-A8812346BDCD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{20940BDC-FAD9-40FF-9FBC-A8812346BDCD}.Debug|x86.Build.0 = Debug|Any CPU
+		{20940BDC-FAD9-40FF-9FBC-A8812346BDCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20940BDC-FAD9-40FF-9FBC-A8812346BDCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20940BDC-FAD9-40FF-9FBC-A8812346BDCD}.Release|x64.ActiveCfg = Release|Any CPU
+		{20940BDC-FAD9-40FF-9FBC-A8812346BDCD}.Release|x64.Build.0 = Release|Any CPU
+		{20940BDC-FAD9-40FF-9FBC-A8812346BDCD}.Release|x86.ActiveCfg = Release|Any CPU
+		{20940BDC-FAD9-40FF-9FBC-A8812346BDCD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
