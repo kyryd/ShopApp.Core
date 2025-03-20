@@ -82,7 +82,7 @@ namespace RepositoryAndServicies.Repositories
             }
         }
 
-        public async Task<IResponse<IEnumerable<T>>> DeleteAllAsync(IEnumerable<T> entities)
+        public Task<IResponse<IEnumerable<T>>> DeleteAllAsync(IEnumerable<T> entities)
         {
             throw new NotImplementedException();
         }
@@ -112,7 +112,7 @@ namespace RepositoryAndServicies.Repositories
 
             try
             {
-                return new DataResponse<int>(_entities.Count != 0 ? _entities.Keys.Max(key => key + 1) : 1);
+                return new DataResponse<int>(!_entities.IsEmpty ? _entities.Keys.Max(key => key + 1) : 1);
             }
             catch (Exception e)
             {
@@ -163,7 +163,7 @@ namespace RepositoryAndServicies.Repositories
 
         public async Task<IResponse<bool>> IsEmpty()
         {
-            return await Task.Run(() => new DataResponse<bool>(_entities.Count == 0));
+            return await Task.Run(() => new DataResponse<bool>(_entities.IsEmpty));
         }
 
         public IResponse<T?> Save(T entity)

@@ -26,7 +26,7 @@ namespace ShopApp.Core.Logic.Tests.BLoC.Prices
             // Arrange
             var usd = MockData.MockCurrencyUSD();
 
-            CurrencyConverterFactory<CurrencyConverter> converterFactory = new CurrencyConverterFactory<CurrencyConverter>(exchangeRates: TestData.ExchangeRates);
+            CurrencyConverterFactory<CurrencyConverter> converterFactory = new(exchangeRates: TestData.ExchangeRates);
             var priceCalculator = new PriceCalculator(converterFactory);
 
             // Act
@@ -45,7 +45,7 @@ namespace ShopApp.Core.Logic.Tests.BLoC.Prices
             // Arrange
             var usd = MockData.MockCurrencyUSD();
 
-            CurrencyConverterFactory<CurrencyConverter> converterFactory = new CurrencyConverterFactory<CurrencyConverter>(exchangeRates: TestData.ExchangeRates);
+            CurrencyConverterFactory<CurrencyConverter> converterFactory = new(exchangeRates: TestData.ExchangeRates);
             var priceCalculator = new PriceCalculator(converterFactory);
 
             var price = new Price(usd, 100m);
@@ -68,7 +68,7 @@ namespace ShopApp.Core.Logic.Tests.BLoC.Prices
             // Arrange
             var usd = MockData.MockCurrencyUSD();
 
-            CurrencyConverterFactory<CurrencyConverter> converterFactory = new CurrencyConverterFactory<CurrencyConverter>(exchangeRates: TestData.ExchangeRates);
+            CurrencyConverterFactory<CurrencyConverter> converterFactory = new(exchangeRates: TestData.ExchangeRates);
             var priceCalculator = new PriceCalculator(converterFactory);
 
             var price = new Price(usd, 100m);
@@ -92,7 +92,7 @@ namespace ShopApp.Core.Logic.Tests.BLoC.Prices
             var usd = TestData.CurrenciesList.First(c => c.Value == Currencies.USD);
             Console.WriteLine($"Source Currency: {usd.Value}");
 
-            CurrencyConverterFactory<CurrencyConverter> converterFactory = new CurrencyConverterFactory<CurrencyConverter>(exchangeRates: TestData.ExchangeRates);
+            CurrencyConverterFactory<CurrencyConverter> converterFactory = new(exchangeRates: TestData.ExchangeRates);
             var priceCalculator = new PriceCalculator(converterFactory);
 
             var price = new Price(usd, 100m);
@@ -120,7 +120,7 @@ namespace ShopApp.Core.Logic.Tests.BLoC.Prices
             var usd = TestData.CurrenciesList.First(c => c.Value == Currencies.USD);
             Console.WriteLine($"Source Currency: {usd.Value}");
 
-            CurrencyConverterFactory<CurrencyConverter> converterFactory = new CurrencyConverterFactory<CurrencyConverter>(exchangeRates: TestData.ExchangeRates);
+            CurrencyConverterFactory<CurrencyConverter> converterFactory = new(exchangeRates: TestData.ExchangeRates);
             var priceCalculator = new PriceCalculator(converterFactory);
 
             var price = new Price(usd, 100m);
@@ -146,7 +146,7 @@ namespace ShopApp.Core.Logic.Tests.BLoC.Prices
             var usd = TestData.CurrenciesList.First(c => c.Value == Currencies.USD);
             Console.WriteLine($"Source Currency: {usd.Value}");
 
-            CurrencyConverterFactory<CurrencyConverter> converterFactory = new CurrencyConverterFactory<CurrencyConverter>(exchangeRates: TestData.ExchangeRates);
+            CurrencyConverterFactory<CurrencyConverter> converterFactory = new(exchangeRates: TestData.ExchangeRates);
             var priceCalculator = new PriceCalculator(converterFactory);
 
             var price = new Price(usd, 100m);
@@ -177,7 +177,7 @@ namespace ShopApp.Core.Logic.Tests.BLoC.Prices
             var usd = TestData.CurrenciesList.First(c => c.Value == Currencies.USD);
             Console.WriteLine($"Source Currency: {usd.Value}");
 
-            CurrencyConverterFactory<CurrencyConverter> converterFactory = new CurrencyConverterFactory<CurrencyConverter>(exchangeRates: TestData.ExchangeRates);
+            CurrencyConverterFactory<CurrencyConverter> converterFactory = new(exchangeRates: TestData.ExchangeRates);
             var priceCalculator = new PriceCalculator(converterFactory);
 
             var price = new Price(usd, 100m);
@@ -202,28 +202,28 @@ namespace ShopApp.Core.Logic.Tests.BLoC.Prices
         public void Test_08_Add_Prices()
         {
             // Arrange
-                Currency fromCurrency = new Currency(TestData.ExchangeRates.First().Key.from);
+                Currency fromCurrency = new(TestData.ExchangeRates.First().Key.from);
                 Console.WriteLine($"From currency: {fromCurrency.Value}");
 
-                Currency toCurrency = new Currency(TestData.ExchangeRates.First().Key.to);
+                Currency toCurrency = new(TestData.ExchangeRates.First().Key.to);
                 Console.WriteLine($"To currency: {toCurrency.Value}");
 
                 var expectedRate = TestData.ExchangeRates.First().Value;
                 Console.WriteLine($"Expected rate: {expectedRate}");
 
-                IPrice price = new Price(toCurrency, 10m);
+                Price price = new(toCurrency, 10m);
                 Console.WriteLine($"Price amount: {price.Amount} {price.Currency.Value}");
 
-                IPrice priceToAdd = new Price(fromCurrency, 10m);
+                Price priceToAdd = new(fromCurrency, 10m);
                 Console.WriteLine($"Price to add amount: {priceToAdd.Amount} {priceToAdd.Currency.Value}");
 
                 decimal expectedAmount = price.Amount + priceToAdd.Amount * expectedRate;
                 Console.WriteLine($"Expected amount: {expectedAmount} {toCurrency.Value}");
 
                 CurrencyConverterFactory<CurrencyConverter> converterFactory = 
-                    new CurrencyConverterFactory<CurrencyConverter>(TestData.ExchangeRates);
+                    new(TestData.ExchangeRates);
                 
-                PriceCalculator priceCalculator = new PriceCalculator(converterFactory);
+                PriceCalculator priceCalculator = new(converterFactory);
             //Act: add a price to the price
 
                 IPrice sum = priceCalculator.Add((Price)price, (Price)priceToAdd);
