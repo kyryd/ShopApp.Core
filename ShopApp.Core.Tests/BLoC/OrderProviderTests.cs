@@ -167,7 +167,7 @@ namespace ShopApp.Core.Tests.BLoC
         }
 
         [TestMethod()]
-        public void Test_02_Each_Order_Get_Total_in_PLN()
+        public void Test_02_Get_Total_for_Each_Order_in_PLN()
         {
             foreach (var order in DataSources.TestData.Orders)
             {

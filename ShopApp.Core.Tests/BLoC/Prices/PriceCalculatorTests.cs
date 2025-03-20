@@ -43,7 +43,7 @@ namespace ShopApp.Core.Tests.BLoC.Prices
         }
 
         [TestMethod()]
-        public void Test_02_Calculate_Total_And_Persent_Disount()
+        public void Test_02_Calculate_Total_And_Percent_Disount()
         {
             // Arrange
             var usd = MockData.MockCurrencyUSD();
@@ -89,7 +89,7 @@ namespace ShopApp.Core.Tests.BLoC.Prices
         }
 
         [TestMethod()]
-        public void Test_04_Calculate_Total_And_Persent_Disount_To_Pln()
+        public void Test_04_Calculate_Total_And_Percent_Disount_To_Pln()
         {
             // Arrange
             var usd = TestData.CurrenciesList.First(c => c.Value == Currencies.USD);
@@ -143,7 +143,7 @@ namespace ShopApp.Core.Tests.BLoC.Prices
         }
 
         [TestMethod()]
-        public void Test_06_Calculate_Total_And_Persent_Disount_With_Tax_To_Pln()
+        public void Test_06_Calculate_Total_And_Percent_Disount_With_Tax_To_Pln()
         {
             // Arrange
             var usd = TestData.CurrenciesList.First(c => c.Value == Currencies.USD);
