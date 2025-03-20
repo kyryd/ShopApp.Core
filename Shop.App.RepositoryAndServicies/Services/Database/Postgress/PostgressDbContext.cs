@@ -6,7 +6,7 @@ namespace RepositoryAndServicies.Services.Database.Postgress
 {
     public sealed class PostgressDbContext(DbContextOptions<PostgressDbContext> options, string? connectionSting = null) : DbContext(options)
     {
-        public DbSet<Client> Cleints { get; set; }
+        public DbSet<Client> Clients { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

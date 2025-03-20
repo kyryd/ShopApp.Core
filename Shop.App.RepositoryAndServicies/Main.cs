@@ -72,7 +72,7 @@ namespace RepositoryAndServicies
                     context?.Database.EnsureCreated();
                     context!.Database.OpenConnection();
                     Console.WriteLine("Connection successful!");
-                    context!.Cleints.Add((Client)Clients[0]);
+                    context!.Clients.Add((Client)Clients[0]);
                     context!.SaveChanges();
                 }
                 catch (Exception ex)
@@ -146,10 +146,10 @@ namespace RepositoryAndServicies
                 context?.Database.EnsureCreated();
                 context!.Database.OpenConnection();
                 Console.WriteLine("Connection successful!");
-                context!.Cleints.Add((Client)Clients[0]);
+                context!.Clients.Add((Client)Clients[0]);
                 context!.SaveChanges();
 
-                var allPersons = context.Cleints.ToList(); // Retrieve all Person objects
+                var allPersons = context.Clients.ToList(); // Retrieve all Person objects
             }
             catch (Exception ex)
             {
