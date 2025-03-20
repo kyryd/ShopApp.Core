@@ -2,7 +2,7 @@
 using ShopApp.Core.Models.Enums;
 using ShopApp.Core.Models.Models;
 
-namespace ShopApp.Core.Tests.BLoC
+namespace ShopApp.Core.Logic.Tests.BLoC
 {
     [TestClass()]
     public class CurrencyConverterTests

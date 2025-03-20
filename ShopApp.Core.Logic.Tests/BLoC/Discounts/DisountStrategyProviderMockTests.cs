@@ -1,7 +1,7 @@
 ﻿using ShopApp.Core.Logic.BLoC.Discounts.Abstract;
-using ShopApp.Core.Tests.DataSources;
+using ShopApp.Core.Logic.Tests.DataSources;
 
-namespace ShopApp.Core.Tests.BLoC.Discounts
+namespace ShopApp.Core.Logic.Tests.BLoC.Discounts
 {
     [TestClass()]
     public class DisountStrategyProviderMockTests

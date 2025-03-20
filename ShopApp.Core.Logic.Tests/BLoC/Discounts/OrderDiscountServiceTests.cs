@@ -2,12 +2,12 @@
 using ShopApp.Core.Logic.BLoC.Converters;
 using ShopApp.Core.Logic.BLoC.Converters.Abstract;
 using ShopApp.Core.Logic.BLoC.Discounts;
+using ShopApp.Core.Logic.Tests.DataSources;
 using ShopApp.Core.Models.Enums;
 using ShopApp.Core.Models.Models.Abstract;
 using ShopApp.Core.Models.Models.Discounts.Abstract;
-using ShopApp.Core.Tests.DataSources;
 
-namespace ShopApp.Core.Tests.BLoC.Discounts
+namespace ShopApp.Core.Logic.Tests.BLoC.Discounts
 {
     [TestClass()]
     public class OrderDiscountServiceTests

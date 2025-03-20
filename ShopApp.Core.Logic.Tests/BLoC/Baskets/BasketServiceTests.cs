@@ -1,5 +1,6 @@
 ﻿using Moq;
 using RepositoryAndServicies.Repositories.Abstract;
+using ShopApp.Core.Logic.BLoC.Baskets;
 using ShopApp.Core.Models.Enums;
 using ShopApp.Core.Models.Models;
 using ShopApp.Core.Models.Models.Abstract;
@@ -11,7 +12,7 @@ using ShopApp.Core.Models.Models.Client;
 using ShopApp.Core.Models.Models.Core.Abstract;
 using System.Collections.Concurrent;
 
-namespace ShopApp.Core.Logic.BLoC.Baskets.Tests
+namespace ShopApp.Core.Logic.Tests.BLoC.Baskets
 {
     [TestClass()]
     public class BasketServiceTests

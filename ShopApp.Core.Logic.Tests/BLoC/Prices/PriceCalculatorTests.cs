@@ -1,12 +1,14 @@
-﻿using ShopApp.Core.Logic.BLoC.Converters;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ShopApp.Core.Logic.BLoC.Converters;
 using ShopApp.Core.Logic.BLoC.Prices;
+using ShopApp.Core.Logic.Tests.DataSources;
 using ShopApp.Core.Models.Enums;
 using ShopApp.Core.Models.Models;
+using ShopApp.Core.Models.Models.Abstract;
 using ShopApp.Core.Models.Models.Core;
 using ShopApp.Core.Models.Models.Discounts;
-using ShopApp.Core.Tests.DataSources;
 
-namespace ShopApp.Core.Tests.BLoC.Prices
+namespace ShopApp.Core.Logic.Tests.BLoC.Prices
 {
     [TestClass()]
     public class PriceCalculatorTests
@@ -161,7 +163,7 @@ namespace ShopApp.Core.Tests.BLoC.Prices
 
 
             // Assert
-            var expectedTotal = (200m * 3.8m * (1 - 0.25m)) * (1m + 0.20m);//(amount * price * exchangeRate *(1 - percent discount)) * (1 + tax)
+            var expectedTotal = 200m * 3.8m * (1 - 0.25m) * (1m + 0.20m);//(amount * price * exchangeRate *(1 - percent discount)) * (1 + tax)
             Console.WriteLine($"Expected total: {expectedTotal}");
             Console.WriteLine($"Actual total: {total.Amount}");
             Assert.AreEqual(expectedTotal, total.Amount);
@@ -195,7 +197,44 @@ namespace ShopApp.Core.Tests.BLoC.Prices
             Console.WriteLine($"Actual total: {total.Amount}");
             Assert.AreEqual(expectedTotal, total.Amount);
         }
+        
+        [TestMethod()]
+        public void Test_08_Add_Prices()
+        {
+            // Arrange
+                Currency fromCurrency = new Currency(TestData.ExchangeRates.First().Key.from);
+                Console.WriteLine($"From currency: {fromCurrency.Value}");
 
+                Currency toCurrency = new Currency(TestData.ExchangeRates.First().Key.to);
+                Console.WriteLine($"To currency: {toCurrency.Value}");
+
+                var expectedRate = TestData.ExchangeRates.First().Value;
+                Console.WriteLine($"Expected rate: {expectedRate}");
+
+                IPrice price = new Price(toCurrency, 10m);
+                Console.WriteLine($"Price amount: {price.Amount} {price.Currency.Value}");
+
+                IPrice priceToAdd = new Price(fromCurrency, 10m);
+                Console.WriteLine($"Price to add amount: {priceToAdd.Amount} {priceToAdd.Currency.Value}");
+
+                decimal expectedAmount = price.Amount + priceToAdd.Amount * expectedRate;
+                Console.WriteLine($"Expected amount: {expectedAmount} {toCurrency.Value}");
+
+                CurrencyConverterFactory<CurrencyConverter> converterFactory = 
+                    new CurrencyConverterFactory<CurrencyConverter>(TestData.ExchangeRates);
+                
+                PriceCalculator priceCalculator = new PriceCalculator(converterFactory);
+            //Act: add a price to the price
+
+                IPrice sum = priceCalculator.Add((Price)price, (Price)priceToAdd);
+                Console.WriteLine($"Total amount: {sum.Amount} {sum.Currency.Value}");
+
+            //Assert: check if the price is correct
+                Assert.AreNotEqual(20m, sum.Amount, "The total amount != 20.");
+
+                Assert.AreEqual(expectedAmount, sum.Amount, $"The expected amount is {expectedAmount}.");
+
+        }
 
     }
 }

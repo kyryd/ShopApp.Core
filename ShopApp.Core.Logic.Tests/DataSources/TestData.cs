@@ -10,7 +10,7 @@ using ShopApp.Core.Models.Models.Core;
 using ShopApp.Core.Models.Models.Discounts;
 using System.Collections.ObjectModel;
 
-namespace ShopApp.Core.Tests.DataSources
+namespace ShopApp.Core.Logic.Tests.DataSources
 {
     internal static class TestData
     {

@@ -14,11 +14,11 @@ using ShopApp.Core.Logic.BLoC.Shipment.Service;
 using ShopApp.Core.Logic.BLoC.Shipment.Service.Abstract;
 using ShopApp.Core.Logic.BLoC.Taxes;
 using ShopApp.Core.Logic.BLoC.Taxes.Abstract;
+using ShopApp.Core.Logic.Tests.DataSources;
 using ShopApp.Core.Models.Models;
 using ShopApp.Core.Models.Models.Abstract;
-using ShopApp.Core.Tests.DataSources;
 
-namespace ShopApp.Core.Tests.BLoC
+namespace ShopApp.Core.Logic.Tests.BLoC
 {
     [TestClass()]
     public class OrderProviderTests
@@ -39,8 +39,8 @@ namespace ShopApp.Core.Tests.BLoC
             IInventoryService<IOrder, IProduct> stockService = new InventoryService(stockProvider: stockProvider);
             IShipmentService<IOrder, IProduct> shipmentService = new ShipmentServiceMock<IOrder, IProduct>();
             IPaymentService paymentService = new PaymentServiceMock();
-            CurrencyConverterFactory<CurrencyConverter> currencyConverterFactory = new CurrencyConverterFactory<CurrencyConverter>(DataSources.TestData.ExchangeRates);
-            IPriceCaluclator<IPrice> priceCalculator = (IPriceCaluclator<IPrice>)new PriceCalculator(currencyConverterFactory);
+            CurrencyConverterFactory<CurrencyConverter> currencyConverterFactory = new CurrencyConverterFactory<CurrencyConverter>(TestData.ExchangeRates);
+            IPriceCaluclator<IPrice> priceCalculator = new PriceCalculator(currencyConverterFactory);
             ITaxProvider taxProvider = new TaxProviderMock();
 
             var strategyProvider = MockData.MockStrategyProviderWith4PredicatesAnd2ValueSelectors();
@@ -74,7 +74,7 @@ namespace ShopApp.Core.Tests.BLoC
             Console.WriteLine("==========================================================================================");
             Console.WriteLine();
 
-            ICurrency targetCurrency = DataSources.TestData.CurrenciesList.First(c => c.Value == Core.Models.Enums.Currencies.PLN);
+            ICurrency targetCurrency = TestData.CurrenciesList.First(c => c.Value == Models.Enums.Currencies.PLN);
             Console.WriteLine($"Target currency: {targetCurrency.Value}");
 
             var services = GetServices(targetCurrency);
@@ -122,7 +122,7 @@ namespace ShopApp.Core.Tests.BLoC
                                                                                                                                     );
             Console.WriteLine($"Price per unit: {order.Product.PricePerUnit.Amount} {order.Product.PricePerUnit.Currency.Value}");
 
-            var pricePerUnitInTargetCurrency = DataSources.TestData.CurrencyConverter.Convert(targetCurrency.Value, order.Product.PricePerUnit).Amount;
+            var pricePerUnitInTargetCurrency = TestData.CurrencyConverter.Convert(targetCurrency.Value, order.Product.PricePerUnit).Amount;
             Console.WriteLine($"Price per unit in target currency: {pricePerUnitInTargetCurrency} {targetCurrency.Value}");
 
             Console.WriteLine($"Tax: ({services.taxProvider.Tax.Name}, {services.taxProvider.Tax.Rate}%)");
@@ -141,8 +141,8 @@ namespace ShopApp.Core.Tests.BLoC
 
             Console.WriteLine($"Expected total: {order.NumberOfUnits} " +
                 $"* {pricePerUnitInTargetCurrency} " +
-                $"* {(1 - aggregatedDiscount.Value.Value / 100)} (discount = {aggregatedDiscount.Value.Value}%) " +
-                $"* {(1 + services.taxProvider.Tax.Rate / 100m)} (tax = {services.taxProvider.Tax.Rate}%)= {expectedTotal} {targetCurrency.Value}");
+                $"* {1 - aggregatedDiscount.Value.Value / 100} (discount = {aggregatedDiscount.Value.Value}%) " +
+                $"* {1 + services.taxProvider.Tax.Rate / 100m} (tax = {services.taxProvider.Tax.Rate}%)= {expectedTotal} {targetCurrency.Value}");
 
 
             // Act
@@ -159,14 +159,14 @@ namespace ShopApp.Core.Tests.BLoC
         [TestMethod()]
         public void Test_01_Get_Total_in_PLN()
         {
-            IOrder order = DataSources.TestData.Orders.First();
+            IOrder order = TestData.Orders.First();
             Test_Get_Total_in_PLN(order);
         }
 
         [TestMethod()]
         public void Test_02_Get_Total_for_Each_Order_in_PLN()
         {
-            foreach (var order in DataSources.TestData.Orders)
+            foreach (var order in TestData.Orders)
             {
 
                 Test_Get_Total_in_PLN(order);

@@ -8,7 +8,7 @@ using ShopApp.Core.Models.Models.Discounts;
 using ShopApp.Core.Models.Models.Discounts.Abstract;
 using ShopApp.Core.Models.Models.Taxes.Abstract;
 
-namespace ShopApp.Core.Tests.DataSources
+namespace ShopApp.Core.Logic.Tests.DataSources
 {
     public static class MockData
     {
