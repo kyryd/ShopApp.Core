@@ -1,13 +1,12 @@
 ﻿using Moq;
-using ShopApp.Core.BLoC.Discounts.Abstract;
-using ShopApp.Core.BLoC.Taxes.Abstract;
-using ShopApp.Core.Enums;
-using ShopApp.Core.Models.Abstract;
-using ShopApp.Core.Models.Core;
-using ShopApp.Core.Models.Core.Abstract;
-using ShopApp.Core.Models.Discounts;
-using ShopApp.Core.Models.Discounts.Abstract;
-using ShopApp.Core.Models.Taxes.Abstract;
+using ShopApp.Core.Logic.BLoC.Discounts.Abstract;
+using ShopApp.Core.Logic.BLoC.Taxes.Abstract;
+using ShopApp.Core.Models.Enums;
+using ShopApp.Core.Models.Models.Abstract;
+using ShopApp.Core.Models.Models.Core;
+using ShopApp.Core.Models.Models.Discounts;
+using ShopApp.Core.Models.Models.Discounts.Abstract;
+using ShopApp.Core.Models.Models.Taxes.Abstract;
 
 namespace ShopApp.Core.Tests.DataSources
 {
@@ -54,7 +53,7 @@ namespace ShopApp.Core.Tests.DataSources
 
                 (d) =>  d.Value.Category.IsPercentage(),
 
-                (d) => d.DisountType == DiscountType.ForVip || d.DisountType == DiscountType.WhenHappyHour 
+                (d) => d.DisountType == DiscountType.ForVip || d.DisountType == DiscountType.WhenHappyHour
                 ]);
             return predicates;
         }
@@ -62,7 +61,7 @@ namespace ShopApp.Core.Tests.DataSources
         public static IDiscountsStrategyProvider MockStrategyProviderWith4PredicatesAnd2ValueSelectors()
         {
             Func<IEnumerable<IDiscount>, decimal>? ValueValueSelector = new Func<IEnumerable<IDiscount>, decimal>(d => d.Min(d => d.Value.Value));
-            
+
 
             //Func<IEnumerable<IDiscount>, DateOnly>? ValidFromSelector = new Func<IEnumerable<IDiscount>, DateOnly>(d => d.Min(d => d.ValidFrom));
             //Func<IEnumerable<IDiscount>, DateOnly>? ValidToSelector = new Func<IEnumerable<IDiscount>, DateOnly>(d => d.Max(d => d.ValidTo));
@@ -76,14 +75,14 @@ namespace ShopApp.Core.Tests.DataSources
 
             var discountStrategy = new Mock<IDiscountsStrategy>();
             discountStrategy.Setup(ds => ds.Predicates).Returns(MockPredicates());
-            
+
             //discountStrategy.Setup(ds => ds.ValueValueSelector).Returns(ValueValueSelector);
-            
+
             discountStrategy.Setup(ds => ds.MaxPercentDiscount).Returns(new OrderDiscount(
-                DiscountType.Aggregated, 
-                ValidFrom:DateOnly.MinValue, 
+                DiscountType.Aggregated,
+                ValidFrom: DateOnly.MinValue,
                 ValidUntill: DateOnly.MaxValue,
-                Value: new DecimalValue( 20m, ValueCategory.percentage)));
+                Value: new DecimalValue(20m, ValueCategory.percentage)));
 
             //discountStrategy.Setup(ds => ds.ValidFromSelector).Returns(ValidFromSelector);
             //discountStrategy.Setup(ds => ds.ValidToSelector).Returns(ValidToSelector);

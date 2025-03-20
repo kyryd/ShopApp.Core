@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -14,7 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ShopApp.Core\ShopApp.Core.csproj" />
+    <ProjectReference Include="..\ShopApp.Core.Logic\ShopApp.Core.Logic.csproj" />
+    <ProjectReference Include="..\ShopApp.Core.Models\ShopApp.Core.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,14 +1,9 @@
-﻿using Moq;
-using ShopApp.Core.BLoC.Converters;
-using ShopApp.Core.BLoC.Converters.Abstract;
-using ShopApp.Core.BLoC.Prices;
-using ShopApp.Core.BLoC.Prices.Abstract;
-using ShopApp.Core.Enums;
-using ShopApp.Core.Models;
-using ShopApp.Core.Models.Abstract;
-using ShopApp.Core.Models.Core;
-using ShopApp.Core.Models.Discounts;
-using ShopApp.Core.Models.Taxes.Abstract;
+﻿using ShopApp.Core.Logic.BLoC.Converters;
+using ShopApp.Core.Logic.BLoC.Prices;
+using ShopApp.Core.Models.Enums;
+using ShopApp.Core.Models.Models;
+using ShopApp.Core.Models.Models.Core;
+using ShopApp.Core.Models.Models.Discounts;
 using ShopApp.Core.Tests.DataSources;
 
 namespace ShopApp.Core.Tests.BLoC.Prices
@@ -16,7 +11,7 @@ namespace ShopApp.Core.Tests.BLoC.Prices
     [TestClass()]
     public class PriceCalculatorTests
     {
-        private static void AssertPriceAndOutputResults(decimal expected, decimal actual) 
+        private static void AssertPriceAndOutputResults(decimal expected, decimal actual)
         {
             Console.WriteLine($"Expected total: {expected}");
             Console.WriteLine($"Actual total: {actual}");
@@ -29,14 +24,14 @@ namespace ShopApp.Core.Tests.BLoC.Prices
             // Arrange
             var usd = MockData.MockCurrencyUSD();
 
-            CurrencyConverterFactory<CurrencyConverter> converterFactory = new CurrencyConverterFactory<CurrencyConverter>(exchangeRates:   TestData.ExchangeRates);
+            CurrencyConverterFactory<CurrencyConverter> converterFactory = new CurrencyConverterFactory<CurrencyConverter>(exchangeRates: TestData.ExchangeRates);
             var priceCalculator = new PriceCalculator(converterFactory);
 
             // Act
-            var total = priceCalculator.CalcTotal(new Price(usd, 100m, converterFactory.GetInstance()), 2);
+            var total = priceCalculator.CalcTotal(new Price(usd, 100m), 2);
 
             // Assert
-            var expectedTotal = 200m ;
+            var expectedTotal = 200m;
             Console.WriteLine($"Expected total: {expectedTotal}");
             Console.WriteLine($"Actual total: {total.Amount}");
             Assert.AreEqual(expectedTotal, total.Amount);
@@ -51,9 +46,9 @@ namespace ShopApp.Core.Tests.BLoC.Prices
             CurrencyConverterFactory<CurrencyConverter> converterFactory = new CurrencyConverterFactory<CurrencyConverter>(exchangeRates: TestData.ExchangeRates);
             var priceCalculator = new PriceCalculator(converterFactory);
 
-            var price = new Price(usd, 100m, converterFactory.GetInstance());
+            var price = new Price(usd, 100m);
             var discount = new ProductDiscount(DiscountType.WhenHappyHour, new DateOnly(2025, 5, 1), new DateOnly(2025, 8, 31), new DecimalValue(25, ValueCategory.percentage));
-            
+
             // Act
             var total = priceCalculator.CalcTotal(price, 2, discount);
 
@@ -74,7 +69,7 @@ namespace ShopApp.Core.Tests.BLoC.Prices
             CurrencyConverterFactory<CurrencyConverter> converterFactory = new CurrencyConverterFactory<CurrencyConverter>(exchangeRates: TestData.ExchangeRates);
             var priceCalculator = new PriceCalculator(converterFactory);
 
-            var price = new Price(usd, 100m, converterFactory.GetInstance());
+            var price = new Price(usd, 100m);
             var discount = new ProductDiscount(DiscountType.WhenHappyHour, new DateOnly(2025, 5, 1), new DateOnly(2025, 8, 31), new DecimalValue(1, ValueCategory.absolute));
 
             // Act
@@ -93,12 +88,12 @@ namespace ShopApp.Core.Tests.BLoC.Prices
         {
             // Arrange
             var usd = TestData.CurrenciesList.First(c => c.Value == Currencies.USD);
-           Console.WriteLine($"Source Currency: {usd.Value}");
+            Console.WriteLine($"Source Currency: {usd.Value}");
 
             CurrencyConverterFactory<CurrencyConverter> converterFactory = new CurrencyConverterFactory<CurrencyConverter>(exchangeRates: TestData.ExchangeRates);
             var priceCalculator = new PriceCalculator(converterFactory);
 
-            var price = new Price(usd, 100m, converterFactory.GetInstance());
+            var price = new Price(usd, 100m);
             var discount = new ProductDiscount(DiscountType.WhenHappyHour, new DateOnly(2025, 5, 1), new DateOnly(2025, 8, 31), new DecimalValue(25, ValueCategory.percentage));
 
             //{ (Currencies.USD, Currencies.PLN), 3.8m },
@@ -106,7 +101,7 @@ namespace ShopApp.Core.Tests.BLoC.Prices
             Console.WriteLine($"Destination Currency: {pln.Value}");
             // Act
             var total = priceCalculator.CalcTotal(price, 2, discount, pln);
-            
+
 
             // Assert
             var expectedTotal = 200m * 3.8m * (1 - 0.25m);
@@ -126,14 +121,14 @@ namespace ShopApp.Core.Tests.BLoC.Prices
             CurrencyConverterFactory<CurrencyConverter> converterFactory = new CurrencyConverterFactory<CurrencyConverter>(exchangeRates: TestData.ExchangeRates);
             var priceCalculator = new PriceCalculator(converterFactory);
 
-            var price = new Price(usd, 100m, converterFactory.GetInstance());
+            var price = new Price(usd, 100m);
             var discount = new ProductDiscount(DiscountType.WhenHappyHour, new DateOnly(2025, 5, 1), new DateOnly(2025, 8, 31), new DecimalValue(1, ValueCategory.absolute));
 
             //{ (Currencies.USD, Currencies.PLN), 3.8m },
             var pln = TestData.CurrenciesList.First(c => c.Value == Currencies.PLN);
             Console.WriteLine($"Destination Currency: {pln.Value}");
             // Act
-            var total = priceCalculator.CalcTotal(price, 2, discount,pln);
+            var total = priceCalculator.CalcTotal(price, 2, discount, pln);
 
             // Assert
             var expectedTotal = 200m * 3.8m - 1m;
@@ -152,7 +147,7 @@ namespace ShopApp.Core.Tests.BLoC.Prices
             CurrencyConverterFactory<CurrencyConverter> converterFactory = new CurrencyConverterFactory<CurrencyConverter>(exchangeRates: TestData.ExchangeRates);
             var priceCalculator = new PriceCalculator(converterFactory);
 
-            var price = new Price(usd, 100m, converterFactory.GetInstance());
+            var price = new Price(usd, 100m);
             var discount = new ProductDiscount(DiscountType.WhenHappyHour, new DateOnly(2025, 5, 1), new DateOnly(2025, 8, 31), new DecimalValue(25, ValueCategory.percentage));
 
             //{ (Currencies.USD, Currencies.PLN), 3.8m },
@@ -160,7 +155,7 @@ namespace ShopApp.Core.Tests.BLoC.Prices
             Console.WriteLine($"Destination Currency: {pln.Value}");
 
             var tax = MockData.Mock20PercentTaxPLN();
-            
+
             // Act
             var total = priceCalculator.CalcTotal(price, 2, discount, pln, tax);
 
@@ -183,7 +178,7 @@ namespace ShopApp.Core.Tests.BLoC.Prices
             CurrencyConverterFactory<CurrencyConverter> converterFactory = new CurrencyConverterFactory<CurrencyConverter>(exchangeRates: TestData.ExchangeRates);
             var priceCalculator = new PriceCalculator(converterFactory);
 
-            var price = new Price(usd, 100m, converterFactory.GetInstance());
+            var price = new Price(usd, 100m);
             var discount = new ProductDiscount(DiscountType.WhenHappyHour, new DateOnly(2025, 5, 1), new DateOnly(2025, 8, 31), new DecimalValue(1, ValueCategory.absolute));
 
             //{ (Currencies.USD, Currencies.PLN), 3.8m },

@@ -1,10 +1,13 @@
-﻿using ShopApp.Core.BLoC;
-using ShopApp.Core.BLoC.Converters;
-using ShopApp.Core.Enums;
-using ShopApp.Core.Models;
-using ShopApp.Core.Models.Abstract;
-using ShopApp.Core.Models.Core;
-using ShopApp.Core.Models.Discounts;
+﻿using ShopApp.Core.Logic.BLoC.Converters;
+using ShopApp.Core.Models.Enums;
+using ShopApp.Core.Models.Models;
+using ShopApp.Core.Models.Models.Abstract;
+using ShopApp.Core.Models.Models.Address;
+using ShopApp.Core.Models.Models.Address.Abstract;
+using ShopApp.Core.Models.Models.Client;
+using ShopApp.Core.Models.Models.Client.Abstract;
+using ShopApp.Core.Models.Models.Core;
+using ShopApp.Core.Models.Models.Discounts;
 using System.Collections.ObjectModel;
 
 namespace ShopApp.Core.Tests.DataSources
@@ -104,7 +107,7 @@ namespace ShopApp.Core.Tests.DataSources
             [
                 new Product(
                     "Apple",
-                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 1.2m, CurrencyConverter),
+                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 1.2m),
                     ProductCategories[ProductCategoryData.FreshProduce],
                     CategoryDiscounts.Take(2).ToList(),
                     ProductDiscounts.Take(2).ToList(),
@@ -112,7 +115,7 @@ namespace ShopApp.Core.Tests.DataSources
                 ),
                 new Product(
                     "Banana",
-                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 0.5m, CurrencyConverter),
+                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 0.5m),
                     ProductCategories[ProductCategoryData.FreshProduce],
                     CategoryDiscounts.Skip(2).Take(2).ToList(),
                     ProductDiscounts.Skip(2).Take(2).ToList(),
@@ -120,7 +123,7 @@ namespace ShopApp.Core.Tests.DataSources
                 ),
                 new Product(
                     "Milk",
-                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 1.5m, CurrencyConverter),
+                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 1.5m),
                     ProductCategories[ProductCategoryData.DairyProducts],
                     CategoryDiscounts.Skip(3).Take(1).ToList(),
                     ProductDiscounts.Skip(3).Take(1).ToList(),
@@ -128,7 +131,7 @@ namespace ShopApp.Core.Tests.DataSources
                 ),
                 new Product(
                     "Cheese",
-                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 2.5m, CurrencyConverter),
+                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 2.5m),
                     ProductCategories[ProductCategoryData.DairyProducts],
                     CategoryDiscounts.Take(2).ToList(),
                     ProductDiscounts.Take(2).ToList(),
@@ -136,7 +139,7 @@ namespace ShopApp.Core.Tests.DataSources
                 ),
                 new Product(
                     "Bread",
-                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 2.0m, CurrencyConverter),
+                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 2.0m),
                     ProductCategories[ProductCategoryData.BakeryBread],
                     CategoryDiscounts.Take(2).ToList(),
                     ProductDiscounts.Take(2).ToList(),
@@ -144,7 +147,7 @@ namespace ShopApp.Core.Tests.DataSources
                 ),
                 new Product(
                     "Cake",
-                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 15.0m, CurrencyConverter),
+                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 15.0m),
                     ProductCategories[ProductCategoryData.BakeryBread],
                     CategoryDiscounts.Take(2).ToList(),
                     ProductDiscounts.Take(2).ToList(),
@@ -152,7 +155,7 @@ namespace ShopApp.Core.Tests.DataSources
                 ),
                 new Product(
                     "Chicken",
-                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 5.0m, CurrencyConverter),
+                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 5.0m),
                     ProductCategories[ProductCategoryData.MeatSeafood],
                     CategoryDiscounts.Take(2).ToList(),
                     ProductDiscounts.Take(2).ToList(),
@@ -160,7 +163,7 @@ namespace ShopApp.Core.Tests.DataSources
                 ),
                 new Product(
                     "Salmon",
-                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 10.0m, CurrencyConverter),
+                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 10.0m),
                     ProductCategories[ProductCategoryData.MeatSeafood],
                     CategoryDiscounts.Take(2).ToList(),
                     ProductDiscounts.Take(2).ToList(),
@@ -168,7 +171,7 @@ namespace ShopApp.Core.Tests.DataSources
                 ),
                 new Product(
                     "Frozen Pizza",
-                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 4.0m, CurrencyConverter),
+                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 4.0m),
                     ProductCategories[ProductCategoryData.FrozenFoods],
                     CategoryDiscounts.Take(2).ToList(),
                     ProductDiscounts.Take(2).ToList(),
@@ -176,7 +179,7 @@ namespace ShopApp.Core.Tests.DataSources
                 ),
                 new Product(
                     "Frozen Vegetables",
-                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 3.0m, CurrencyConverter),
+                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 3.0m),
                     ProductCategories[ProductCategoryData.FrozenFoods],
                     CategoryDiscounts.Take(2).ToList(),
                     ProductDiscounts.Take(2).ToList(),
@@ -184,7 +187,7 @@ namespace ShopApp.Core.Tests.DataSources
                 ),
                 new Product(
                     "Pasta",
-                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 1.0m, CurrencyConverter),
+                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 1.0m),
                     ProductCategories[ProductCategoryData.PantryStaples],
                     CategoryDiscounts.Take(2).ToList(),
                     ProductDiscounts.Take(2).ToList(),
@@ -192,7 +195,7 @@ namespace ShopApp.Core.Tests.DataSources
                 ),
                 new Product(
                     "Rice",
-                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 1.2m, CurrencyConverter),
+                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 1.2m),
                     ProductCategories[ProductCategoryData.PantryStaples],
                     CategoryDiscounts.Take(2).ToList(),
                     ProductDiscounts.Take(2).ToList(),
@@ -200,7 +203,7 @@ namespace ShopApp.Core.Tests.DataSources
                 ),
                 new Product(
                     "Chips",
-                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 1.5m, CurrencyConverter),
+                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 1.5m),
                     ProductCategories[ProductCategoryData.SnacksSweets],
                     CategoryDiscounts.Take(2).ToList(),
                     ProductDiscounts.Take(2).ToList(),
@@ -208,7 +211,7 @@ namespace ShopApp.Core.Tests.DataSources
                 ),
                 new Product(
                     "Chocolate",
-                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 2.0m, CurrencyConverter),
+                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 2.0m),
                     ProductCategories[ProductCategoryData.SnacksSweets],
                     CategoryDiscounts.Take(2).ToList(),
                     ProductDiscounts.Take(2).ToList(),
@@ -216,7 +219,7 @@ namespace ShopApp.Core.Tests.DataSources
                 ),
                 new Product(
                     "Coffee",
-                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 3.0m, CurrencyConverter),
+                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 3.0m),
                     ProductCategories[ProductCategoryData.Beverages],
                     CategoryDiscounts.Take(2).ToList(),
                     ProductDiscounts.Take(2).ToList(),
@@ -224,7 +227,7 @@ namespace ShopApp.Core.Tests.DataSources
                 ),
                 new Product(
                     "Tea",
-                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 2.5m, CurrencyConverter),
+                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 2.5m),
                     ProductCategories[ProductCategoryData.Beverages],
                     CategoryDiscounts.Take(2).ToList(),
                     ProductDiscounts.Take(2).ToList(),
@@ -232,7 +235,7 @@ namespace ShopApp.Core.Tests.DataSources
                 ),
                 new Product(
                     "Gluten-Free Bread",
-                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 3.0m, CurrencyConverter),
+                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 3.0m),
                     ProductCategories[ProductCategoryData.HealthSpecialtyFoods],
                     CategoryDiscounts.Take(2).ToList(),
                     ProductDiscounts.Take(2).ToList(),
@@ -240,7 +243,7 @@ namespace ShopApp.Core.Tests.DataSources
                 ),
                 new Product(
                     "Vegan Cheese",
-                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 4.0m, CurrencyConverter),
+                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 4.0m),
                     ProductCategories[ProductCategoryData.HealthSpecialtyFoods],
                     CategoryDiscounts.Take(2).ToList(),
                     ProductDiscounts.Take(2).ToList(),
@@ -248,7 +251,7 @@ namespace ShopApp.Core.Tests.DataSources
                 ),
                 new Product(
                     "Sushi",
-                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 8.0m, CurrencyConverter),
+                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 8.0m),
                     ProductCategories[ProductCategoryData.InternationalEthnicFoods],
                     CategoryDiscounts.Take(2).ToList(),
                     ProductDiscounts.Take(2).ToList(),
@@ -256,7 +259,7 @@ namespace ShopApp.Core.Tests.DataSources
                 ),
                 new Product(
                     "Tacos",
-                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 6.0m, CurrencyConverter),
+                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 6.0m),
                     ProductCategories[ProductCategoryData.InternationalEthnicFoods],
                     CategoryDiscounts.Take(2).ToList(),
                     ProductDiscounts.Take(2).ToList(),
@@ -264,7 +267,7 @@ namespace ShopApp.Core.Tests.DataSources
                 ),
                 new Product(
                     "Baby Formula",
-                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 20.0m, CurrencyConverter),
+                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 20.0m),
                     ProductCategories[ProductCategoryData.BabyKidsFood],
                     CategoryDiscounts.Take(2).ToList(),
                     ProductDiscounts.Take(2).ToList(),
@@ -272,7 +275,7 @@ namespace ShopApp.Core.Tests.DataSources
                 ),
                 new Product(
                     "Baby Snacks",
-                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 5.0m, CurrencyConverter),
+                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 5.0m),
                     ProductCategories[ProductCategoryData.BabyKidsFood],
                     CategoryDiscounts.Take(2).ToList(),
                     ProductDiscounts.Take(2).ToList(),
@@ -280,7 +283,7 @@ namespace ShopApp.Core.Tests.DataSources
                 ),
                 new Product(
                     "Dog Food",
-                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 10.0m, CurrencyConverter),
+                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 10.0m),
                     ProductCategories[ProductCategoryData.PetFood],
                     CategoryDiscounts.Take(2).ToList(),
                     ProductDiscounts.Take(2).ToList(),
@@ -288,7 +291,7 @@ namespace ShopApp.Core.Tests.DataSources
                 ),
                 new Product(
                     "Cat Food",
-                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 8.0m, CurrencyConverter),
+                    new Price(CurrenciesList.First(c => c.Value == Currencies.USD), 8.0m),
                     ProductCategories[ProductCategoryData.PetFood],
                     CategoryDiscounts.Take(2).ToList(),
                     ProductDiscounts.Take(2).ToList(),
@@ -297,11 +300,53 @@ namespace ShopApp.Core.Tests.DataSources
             ]
         );
 
+        internal static readonly IList<IClient> Clients =
+        [
+            new Client
+            (
+                FirstName:"Pol",
+                LastName:"Andersen",
+                ClientAddress: new Address(Street: "123 Main St", City: "Springfield", State: "IL", Zip: "62701", Country: "USA"),
+                DeliveryAddresses: new List<IAddress>
+                {
+                    new Address("456 Elm St", "Springfield", "IL", "62702", "USA"),
+                    new Address("789 Oak St", "Springfield", "IL", "62703", "USA")
+                },
+                IsVip: true
+            ),
+            new Client
+            (
+                FirstName:"Matthew",
+                LastName:"McConaughey",
+                ClientAddress: new Address(Street: "321 Maple St", City: "Springfield", State: "IL", Zip: "62704", Country: "USA"),
+                DeliveryAddresses: new List<IAddress>
+                {
+                    new Address("654 Pine St", "Springfield", "IL", "62705", "USA"),
+                    new Address("987 Birch St", "Springfield", "IL", "62706", "USA")
+                },
+                IsVip: false
+            ),
+            new Client
+            (
+                FirstName:"Arnold",
+                LastName:"Schwarzenegger",
+                ClientAddress: new Address(Street: "111 Oak St", City: "Springfield", State: "IL", Zip: "62707", Country: "USA"),
+                DeliveryAddresses: new List<IAddress>
+                {
+                    new Address("222 Cedar St", "Springfield", "IL", "62708", "USA"),
+                    new Address("333 Walnut St", "Springfield", "IL", "62709", "USA")
+                },
+                IsVip: true
+            )
+        ];
+
+
 
         internal static readonly ReadOnlyCollection<IOrder> Orders = new(
             [
                 new Order
                 (
+                    Consumer: Clients[0],
                     DateTime.Now,
                     Products.First(),
                     [..OrderDiscounts.Skip(0).Take(2)],
@@ -309,6 +354,7 @@ namespace ShopApp.Core.Tests.DataSources
                 ),
                 new Order
                 (
+                    Consumer: Clients[1],
                     DateTime.Now.AddDays(-1),
                     Products.Skip(1).First(),
                     [..OrderDiscounts.Skip(0).Take(5)],
@@ -316,10 +362,11 @@ namespace ShopApp.Core.Tests.DataSources
                 ),
                 new Order
                 (
+                    Consumer: Clients[2],
                     DateTime.Now.AddDays(-2),
                     Products.Skip(2).First(),
                     [OrderDiscounts.Skip(2).First()],
-                    1                   
+                    1
                 )
             ]
         );

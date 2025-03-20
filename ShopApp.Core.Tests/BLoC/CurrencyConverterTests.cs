@@ -1,6 +1,6 @@
-﻿using ShopApp.Core.BLoC.Converters;
-using ShopApp.Core.Enums;
-using ShopApp.Core.Models;
+﻿using ShopApp.Core.Logic.BLoC.Converters;
+using ShopApp.Core.Models.Enums;
+using ShopApp.Core.Models.Models;
 
 namespace ShopApp.Core.Tests.BLoC
 {

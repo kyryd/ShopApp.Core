@@ -1,10 +1,10 @@
 ﻿using Moq;
-using ShopApp.Core.BLoC.Converters;
-using ShopApp.Core.BLoC.Converters.Abstract;
-using ShopApp.Core.BLoC.Discounts;
-using ShopApp.Core.Enums;
-using ShopApp.Core.Models.Abstract;
-using ShopApp.Core.Models.Discounts.Abstract;
+using ShopApp.Core.Logic.BLoC.Converters;
+using ShopApp.Core.Logic.BLoC.Converters.Abstract;
+using ShopApp.Core.Logic.BLoC.Discounts;
+using ShopApp.Core.Models.Enums;
+using ShopApp.Core.Models.Models.Abstract;
+using ShopApp.Core.Models.Models.Discounts.Abstract;
 using ShopApp.Core.Tests.DataSources;
 
 namespace ShopApp.Core.Tests.BLoC.Discounts

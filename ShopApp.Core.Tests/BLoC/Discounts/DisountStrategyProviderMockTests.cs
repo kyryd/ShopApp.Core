@@ -1,7 +1,5 @@
-﻿using ShopApp.Core.BLoC.Discounts.Abstract;
-using ShopApp.Core.Models.Discounts.Abstract;
+﻿using ShopApp.Core.Logic.BLoC.Discounts.Abstract;
 using ShopApp.Core.Tests.DataSources;
-using System.Linq.Expressions;
 
 namespace ShopApp.Core.Tests.BLoC.Discounts
 {

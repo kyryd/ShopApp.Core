@@ -1,24 +1,21 @@
-﻿using Moq;
-using ShopApp.Core.BLoC.Converters;
-using ShopApp.Core.BLoC.Converters.Abstract;
-using ShopApp.Core.BLoC.Discounts;
-using ShopApp.Core.BLoC.Discounts.Abstract;
-using ShopApp.Core.BLoC.Inventory.Provider;
-using ShopApp.Core.BLoC.Inventory.Provider.Abstract;
-using ShopApp.Core.BLoC.Inventory.Service;
-using ShopApp.Core.BLoC.Inventory.Service.Abstract;
-using ShopApp.Core.BLoC.Orders;
-using ShopApp.Core.BLoC.Orders.Abstract;
-using ShopApp.Core.BLoC.Payment;
-using ShopApp.Core.BLoC.Payment.Service;
-using ShopApp.Core.BLoC.Prices;
-using ShopApp.Core.BLoC.Prices.Abstract;
-using ShopApp.Core.BLoC.Shipment.Service;
-using ShopApp.Core.BLoC.Shipment.Service.Abstract;
-using ShopApp.Core.BLoC.Taxes;
-using ShopApp.Core.BLoC.Taxes.Abstract;
-using ShopApp.Core.Models;
-using ShopApp.Core.Models.Abstract;
+﻿using ShopApp.Core.Logic.BLoC.Converters;
+using ShopApp.Core.Logic.BLoC.Discounts;
+using ShopApp.Core.Logic.BLoC.Inventory.Provider;
+using ShopApp.Core.Logic.BLoC.Inventory.Provider.Abstract;
+using ShopApp.Core.Logic.BLoC.Inventory.Service;
+using ShopApp.Core.Logic.BLoC.Inventory.Service.Abstract;
+using ShopApp.Core.Logic.BLoC.Orders;
+using ShopApp.Core.Logic.BLoC.Orders.Abstract;
+using ShopApp.Core.Logic.BLoC.Payment;
+using ShopApp.Core.Logic.BLoC.Payment.Service;
+using ShopApp.Core.Logic.BLoC.Prices;
+using ShopApp.Core.Logic.BLoC.Prices.Abstract;
+using ShopApp.Core.Logic.BLoC.Shipment.Service;
+using ShopApp.Core.Logic.BLoC.Shipment.Service.Abstract;
+using ShopApp.Core.Logic.BLoC.Taxes;
+using ShopApp.Core.Logic.BLoC.Taxes.Abstract;
+using ShopApp.Core.Models.Models;
+using ShopApp.Core.Models.Models.Abstract;
 using ShopApp.Core.Tests.DataSources;
 
 namespace ShopApp.Core.Tests.BLoC
@@ -36,13 +33,13 @@ namespace ShopApp.Core.Tests.BLoC
                 OrderDiscountService discountService)
             GetServices(ICurrency targetCurrency)
         {
-            
+
 
             IInventoryProvider<IProduct> stockProvider = new InventoryProviderMock();
             IInventoryService<IOrder, IProduct> stockService = new InventoryService(stockProvider: stockProvider);
             IShipmentService<IOrder, IProduct> shipmentService = new ShipmentServiceMock<IOrder, IProduct>();
             IPaymentService paymentService = new PaymentServiceMock();
-            CurrencyConverterFactory<CurrencyConverter> currencyConverterFactory =  new CurrencyConverterFactory<CurrencyConverter>(DataSources.TestData.ExchangeRates);
+            CurrencyConverterFactory<CurrencyConverter> currencyConverterFactory = new CurrencyConverterFactory<CurrencyConverter>(DataSources.TestData.ExchangeRates);
             IPriceCaluclator<IPrice> priceCalculator = (IPriceCaluclator<IPrice>)new PriceCalculator(currencyConverterFactory);
             ITaxProvider taxProvider = new TaxProviderMock();
 
@@ -54,11 +51,11 @@ namespace ShopApp.Core.Tests.BLoC
                 converterFactory: currencyConverterFactory
             );
 
-            return (stockService, shipmentService, paymentService, currencyConverterFactory, taxProvider, priceCalculator,orderDiscountService);
+            return (stockService, shipmentService, paymentService, currencyConverterFactory, taxProvider, priceCalculator, orderDiscountService);
         }
 
 
-        
+
 
         [TestInitialize]
         public void TestInitialize()
@@ -77,7 +74,7 @@ namespace ShopApp.Core.Tests.BLoC
             Console.WriteLine("==========================================================================================");
             Console.WriteLine();
 
-            ICurrency targetCurrency = DataSources.TestData.CurrenciesList.First(c => c.Value == Enums.Currencies.PLN);
+            ICurrency targetCurrency = DataSources.TestData.CurrenciesList.First(c => c.Value == Core.Models.Enums.Currencies.PLN);
             Console.WriteLine($"Target currency: {targetCurrency.Value}");
 
             var services = GetServices(targetCurrency);
@@ -90,7 +87,7 @@ namespace ShopApp.Core.Tests.BLoC
 
             Console.WriteLine("Order details:");
 
-            Console.WriteLine($"\tOrder: {nameof(Product.Name)}:{order.Product.Name}, " +
+            Console.WriteLine($"\tOrder: {nameof(order.Product.Name)}:{order.Product.Name}, " +
                                      $"{nameof(order.Product.Unit)}:{order.Product.Unit}, " +
                                      $"{nameof(order.NumberOfUnits)}:{order.NumberOfUnits}, " +
                                      $"{nameof(order.Product.PricePerUnit)}:{order.Product.PricePerUnit.Amount}, " +
@@ -105,12 +102,12 @@ namespace ShopApp.Core.Tests.BLoC
                                      $"{nameof(discount.ValidTo)}:{discount.ValidTo}, " +
                                      $"{nameof(discount.Value)}:{discount.Value.Value}, " +
                                      $"{nameof(discount.Value.Category)}:{discount.Value.Category},");
-                Console.WriteLine($"\t\tIs the discount determined as valid based on the Strategy Predicates?: { strategy.Predicates.All(p => p(discount))}\n");
+                Console.WriteLine($"\t\tIs the discount determined as valid based on the Strategy Predicates?: {strategy.Predicates.All(p => p(discount))}\n");
             }
             Console.WriteLine();
 
 
-            
+
 
             IOrderService<IProduct, IOrder> orderService = new OrderService<IOrder, IProduct>(
                                                                                                 order,
