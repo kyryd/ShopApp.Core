@@ -12,9 +12,9 @@ namespace RepositoryAndServicies.Services.Network
         public JsonSerializerOptions JsonOptions { get; }
         private HttpStatusCode _lastStatusCode = HttpStatusCode.OK;
         private HttpStatusCode StatusCode => _lastStatusCode;
-        //private HttpClient Client { get; }
+        private HttpClient Client { get; }
 
-        
+
         public string? ErrorMessage => StatusCode switch
         {
             HttpStatusCode.OK => null,
@@ -24,32 +24,40 @@ namespace RepositoryAndServicies.Services.Network
             HttpStatusCode.Forbidden => "Forbidden. Service is down, please try later",
             _ => "Unknown"
         };
-
-         
-
         private static string AdjustPath(string path) => path.StartsWith("/") ? path : $"/{path}";
+
+        /// <summary>
+        /// Creates a new instance of HttpService with the specified server base address.
+        /// </summary>
+        /// <param name="serverBaseAddress"></param>
         public HttpService(string serverBaseAddress)
         {
             _serverBaseAddress = serverBaseAddress;
-            //_serviceName = serviceName;
             JsonOptions = new()
             {
                 PropertyNameCaseInsensitive = true
             };
-          //  Client = new();
+
+            Client = new()
+            {
+                BaseAddress = new($"{_serverBaseAddress}")
+            };
 
         }
+        /// <summary>
+        /// Sends a GET request to the specified path and returns the response content as a string.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public async Task<ActionResult<string>> GetAsyncFrom(string path)
         {
             string responseContent = string.Empty;
             path = AdjustPath(path);
 
-            HttpClient client = new ();
             try
             {
-                client.BaseAddress = new($"{_serverBaseAddress}{path}");
-                Debug.WriteLine(client.BaseAddress.OriginalString);
-                HttpResponseMessage response = await client.GetAsync(path);
+                Debug.WriteLine(Client.BaseAddress?.OriginalString);
+                HttpResponseMessage response = await Client.GetAsync(path);
                 _lastStatusCode = response.StatusCode;
                 response.EnsureSuccessStatusCode();
                 responseContent = await response.Content.ReadAsStringAsync();
@@ -60,24 +68,24 @@ namespace RepositoryAndServicies.Services.Network
                 Debug.WriteLine(e.Message);
                 return new BadRequestObjectResult(e.Message);
             }
-            finally 
-            { 
-                client.Dispose(); 
-            }
 
             return new OkObjectResult(responseContent);
         }
+        /// <summary>
+        /// Sends a POST request to the specified path with the given content and returns the response content as a string.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="content"></param>
+        /// <returns></returns>
         public async Task<ActionResult<string>> CreateAsyncBy(string path, HttpContent content)
         {
-            using HttpClient client = new();
             string responseContent = string.Empty;
 
             path = AdjustPath(path);
             try
             {
-                client.BaseAddress = new($"{_serverBaseAddress}{path}");
-                Debug.WriteLine(client.BaseAddress.OriginalString);
-                HttpResponseMessage response = await client.PostAsync(path, content);
+                Debug.WriteLine(Client.BaseAddress?.OriginalString);
+                HttpResponseMessage response = await Client.PostAsync(path, content);
                 _lastStatusCode = response.StatusCode;
                 response.EnsureSuccessStatusCode();
                 responseContent = await response.Content.ReadAsStringAsync();
@@ -88,27 +96,24 @@ namespace RepositoryAndServicies.Services.Network
                 return new BadRequestObjectResult(e.Message);
 
             }
-            finally
-            {
-                client.Dispose();
-            }
-
 
             return new OkObjectResult(responseContent);
         }
 
 
-
+        /// <summary>
+        /// Sends a PUT request to the specified path with the given content and returns the response content as a string.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="content"></param>
+        /// <returns></returns>
         public async Task<ActionResult<string>> UpdateAsyncBy(string path, HttpContent content)
         {
             string responseContent = string.Empty;
-            HttpClient client = new();
             path = AdjustPath(path);
             try
             {
-                client.BaseAddress = new($"{_serverBaseAddress}{path}");
-                Debug.WriteLine(client.BaseAddress.OriginalString);
-                HttpResponseMessage response = await client.PutAsync(path, content);
+                HttpResponseMessage response = await Client.PutAsync(path, content);
                 _lastStatusCode = response.StatusCode;
                 response.EnsureSuccessStatusCode();
                 responseContent = await response.Content.ReadAsStringAsync();
@@ -119,23 +124,21 @@ namespace RepositoryAndServicies.Services.Network
                 return new BadRequestObjectResult(e.Message);
 
             }
-            finally
-            {
-                client.Dispose();
-            }
             return new OkObjectResult(responseContent);
         }
 
+        /// <summary>
+        /// Sends a DELETE request to the specified path and returns the response content as a string.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public async Task<ActionResult<string>> DeleteAsyncBy(string path)
         {
             string responseContent = string.Empty;
             path = AdjustPath(path);
-            HttpClient client = new();
             try
             {
-                client.BaseAddress = new($"{_serverBaseAddress}{path}");
-                Debug.WriteLine(client.BaseAddress.OriginalString);
-                HttpResponseMessage response = await client.DeleteAsync(path);
+                HttpResponseMessage response = await Client.DeleteAsync(path);
                 _lastStatusCode = response.StatusCode;
                 response.EnsureSuccessStatusCode();
                 responseContent = await response.Content.ReadAsStringAsync();
@@ -144,10 +147,6 @@ namespace RepositoryAndServicies.Services.Network
             {
                 Debug.WriteLine(e.Message);
                 return new BadRequestObjectResult(e.Message);
-            }
-            finally
-            {
-                client.Dispose();
             }
 
             return new OkObjectResult(responseContent);
@@ -155,7 +154,7 @@ namespace RepositoryAndServicies.Services.Network
 
         public void Dispose()
         {
-            //Client.Dispose();
+            Client.Dispose();
         }
     }
 }
