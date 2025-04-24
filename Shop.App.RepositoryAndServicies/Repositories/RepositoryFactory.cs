@@ -40,12 +40,6 @@ namespace RepositoryAndServicies.Repositories
                     { RepositoryType.LocalNetworkService, new NetworkRepository <T>(LocalServerAddress) },
                     { RepositoryType.RemoteNetworkService, new NetworkRepository <T>(RemoteServerAddress) },
              };
-            //_factories = new() {
-            //    { RepositoryType.LocalInMemory, (option) => _backends.TryGetValue(option, out IFrontendRepository<T>? repo) ? repo! : _backends[option] = new InMemoryRepository<T>() },
-            //    { RepositoryType.LocalDB, (option) => _backends.TryGetValue(option, out IFrontendRepository<T>? repo) ? repo! : _backends[option] = new EfRepository<T>(ContextProvider) },
-            //    { RepositoryType.LocalNetworkService, (option) => _backends.TryGetValue(option, out IFrontendRepository<T>? repo) ? repo! : _backends[option] = new NetworkRepository<T>(LocalServerAddress) },
-            //    { RepositoryType.RemoteNetworkService, (option) => _backends.TryGetValue(option, out IFrontendRepository<T>? repo) ? repo! : _backends[option] = new NetworkRepository<T>(RemoteServerAddress) },
-            //};
         }
 
         private readonly Dictionary<RepositoryType, IFrontendRepository<T>> _repositories;
@@ -53,7 +47,7 @@ namespace RepositoryAndServicies.Repositories
         private readonly Dictionary<RepositoryType, Func<RepositoryType, IFrontendRepository<T>>> _factories;
 
 
-        public IFrontendRepository<T> Get(RepositoryType option) => _repositories[option]; //_factories[option](option);
+        public IFrontendRepository<T> Get(RepositoryType option) => _repositories[option]; 
 
         public void Dispose()
         {

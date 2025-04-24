@@ -72,59 +72,8 @@ namespace ShopApp.Core.Logic.BLoC.Orders
             }
             return DeliveryService.CheckStatus(Order);
 
-            //return Task.Run(() =>
-            //{
-            //    if (Order.PaymentState.IsPaid())
-            //    {
-            //        return Order.DeliveryState = Order.DeliveryState.IsShipped() ? DeliveryState.Delivered : DeliveryState.Shipped;
-            //    }
-            //    else if (new HashSet<PaymentState>([PaymentState.InProcess, PaymentState.Unpaid]).Contains(Order.PaymentState))
-            //    {
-            //        return Order.DeliveryState = DeliveryState.NotShipped;
-            //    }
-            //    else if (new HashSet<PaymentState>([PaymentState.Cancelled, PaymentState.Refunded]).Contains(Order.PaymentState))
-            //    {
-            //        return Order.DeliveryState = DeliveryState.Cancelled;
-            //    }
-            //    return Order.DeliveryState;
-            //});
         }
 
-        //private IPrice ApplyDiscount(IOrder order, IDiscount discount, ICurrency currency, ICurrencyConverter currencyConverter, IOrderService<IProduct, IOrder> orderService)
-        //{
-        //    IPrice totalPriceBeforeDiscount = new Price(currency, orderService.GetTotal().Amount, currencyConverter);
-        //    IPrice afterDicount = new Price(currency, 0m, currencyConverter);
-
-        //    if (discount.Value.Category.IsAbsolute())
-        //    {
-        //        var discountLimit = StrategyProvider.Strategy.MaxAbsoluteDicount.Value.Value;
-        //        var disountValue = discount.Value.Value < discountLimit ? discount.Value.Value : discountLimit;
-
-        //        afterDicount.Amount = totalPriceBeforeDiscount.Amount - disountValue;
-        //    }
-        //    else if (discount.Value.Category.IsPercentage())
-        //    {
-        //        var discountLimit = StrategyProvider.Strategy.MaxPercentDiscount.Value.Value;
-        //        var disountValue = discount.Value.Value < discountLimit ? discount.Value.Value : discountLimit;
-
-        //        afterDicount.Amount = totalPriceBeforeDiscount.Amount * disountValue / 100m;
-        //    }
-        //    else
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-
-        //    return totalPriceBeforeDiscount;
-        //}
-
-
-
-        //public IPrice ApplyAllDisounts(IOrder order, IOrderService<IProduct, IOrder> orderService) => ApplyDiscount(
-        //                                                               order: order,
-        //                                                               discount: AcumulateDiscounts(new ReadOnlyCollection<IDiscount>(Discounts.ToList())),
-        //                                                               currency: Currency,
-        //                                                               currencyConverter: ConverterFactory.GetNewInstance(),
-        //                                                               orderService: orderService);
 
         public async Task<bool> ReserveInStock() => await StockService.Reserve(Order) == StockState.Reserved;
 

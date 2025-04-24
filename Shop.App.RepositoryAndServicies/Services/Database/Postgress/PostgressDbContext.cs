@@ -29,15 +29,4 @@ namespace RepositoryAndServicies.Services.Database.Postgress
         }
     }
 
-    //    var serviceProvider = new ServiceCollection()
-    //        .AddDbContext<PostgressDbContext<Person>>(options =>
-    //            options.UseNpgsql("YourConnectionStringHere"))
-    //        .BuildServiceProvider();
-    //    context.CreateDatabase();
-    //public class Person : Entity
-    //{
-    //    public string FirstName { get; set; }
-    //    public string LastName { get; set; }
-    //    public DateTime DateOfBirth { get; set; }
-    //}
 }

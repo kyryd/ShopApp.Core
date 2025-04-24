@@ -11,7 +11,6 @@ namespace ShopApp.Core.Models.Models.Abstract
         IList<OrderDiscount> Discounts { get; }
         IProduct Product { get; }
         decimal NumberOfUnits { get; }
-        //KeyValuePair<(Currencies, Currencies), decimal> RateAtOrderTime { get; }
         DeliveryState DeliveryState { get; set; }
         PaymentState PaymentState { get; set; }
     }

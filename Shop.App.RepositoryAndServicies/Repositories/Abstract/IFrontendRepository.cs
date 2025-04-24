@@ -3,6 +3,10 @@
 namespace RepositoryAndServicies.Repositories.Abstract
 {
 
+    /// <summary>
+    /// IFrontendRepository interface for Get/Save/Delete operations on entities in terms of domain logic.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public interface IFrontendRepository<T>:IDisposable where T : Entity
     {
         

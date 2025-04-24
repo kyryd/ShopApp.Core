@@ -7,20 +7,6 @@ namespace ShopApp.Core.Logic.BLoC.Inventory.Service
 {
     public class InventoryService(IInventoryProvider<IProduct> stockProvider) : IInventoryService<IOrder, IProduct>
     {
-        //public async Task<bool> Release(IOrder order)
-        //{
-        //   return await stockProvider.Release(order.Product, order.NumberOfUnits);
-        //}
-
-        //public async Task<bool> Reserve(IOrder order)
-        //{
-        //    return await stockProvider.Reserve(order.Product, order.NumberOfUnits);
-        //}
-
-        //public async Task<bool> Deduct(IOrder order)
-        //{
-        //    return await stockProvider.Reserve(order.Product, order.NumberOfUnits);
-        //}
         public async Task<StockState> Deduct(IOrder order)
         {
             return await stockProvider.Reserve(order.Product, order.NumberOfUnits) ? StockState.Deducted : StockState.OutOfStock;

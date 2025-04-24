@@ -32,8 +32,6 @@ namespace ShopApp.Core.Logic.BLoC.Discounts.Abstract
         {
             List<D> filtered = [.. discounts.Where(d => strategy.Predicates.All(p => p(d)))];
 
-
-
             return filtered ;
         }
 

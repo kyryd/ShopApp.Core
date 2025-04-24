@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RepositoryAndServicies.Services.Database.Postgress;
-using RepositoryAndServicies.Services.Database.Postgress.Generics;
 using ShopApp.Core.Models.Models.Address;
 using ShopApp.Core.Models.Models.Address.Abstract;
 using ShopApp.Core.Models.Models.Client;
@@ -81,50 +80,6 @@ namespace RepositoryAndServicies
                 }
             }
         }
-
-        //static void test2()
-        //{
-        //    var optionsBuilder = new DbContextOptionsBuilder<PostgressDbContextT<Person>>();
-        //    optionsBuilder.UseNpgsql("Host = localhost:5432; Username = kir; Password = 1980; Database = wpftest");
-
-
-        //    using (var context = new PostgressDbContextT<Person>(optionsBuilder.Options))
-        //    {
-        //        try
-        //        {
-
-        //            context?.Database.EnsureCreated();
-        //            context!.Database.OpenConnection();
-        //            Console.WriteLine("Connection successful!");
-        //            context!.Entities.Add(new Person("IOP", "SOP", 1980));
-        //            context!.SaveChanges();
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            Console.WriteLine($"Connection failed: {ex.Message}");
-        //        }
-        //    }
-        //}
-        ////static void test3()
-        ////{
-        ////    var optionsBuilder = new DbContextOptionsBuilder<PostgressDbContextT<Person>>();
-        ////    optionsBuilder.UseNpgsql("Host = localhost:5432; Username = kir; Password = 1980; Database = wpftest");
-
-
-
-        ////    using (var context = new PostgressDbContextT<Person>(optionsBuilder.Options))
-        ////    {
-        ////        try
-        ////        {
-        ////            IFrontendRepository<Person> frontendRepository = new EfRepository<Person>(context);
-        ////            frontendRepository.Save(new Person("IOP", "SOP", 1980));
-        ////        }
-        ////        catch (Exception ex)
-        ////        {
-        ////            Console.WriteLine($"Connection failed: {ex.Message}");
-        ////        }
-        ////    }
-        ////}
 
         private static ServiceProvider ConfigureServices()
         {

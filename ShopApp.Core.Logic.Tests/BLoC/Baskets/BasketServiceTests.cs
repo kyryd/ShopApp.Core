@@ -9,8 +9,6 @@ using ShopApp.Core.Models.Models.Address.Abstract;
 using ShopApp.Core.Models.Models.Baskets;
 using ShopApp.Core.Models.Models.Baskets.Abstract;
 using ShopApp.Core.Models.Models.Client;
-using ShopApp.Core.Models.Models.Core.Abstract;
-using System.Collections.Concurrent;
 
 namespace ShopApp.Core.Logic.Tests.BLoC.Baskets
 {
@@ -65,7 +63,7 @@ namespace ShopApp.Core.Logic.Tests.BLoC.Baskets
                 IsVip: true
             );
         }
-        private IList<IBasketItem> GetBasketItems(ICurrency currency) => 
+        private IList<IBasketItem> GetBasketItems(ICurrency currency) =>
             [
                 new BasketItem
                             (
@@ -92,8 +90,6 @@ namespace ShopApp.Core.Logic.Tests.BLoC.Baskets
             var response = new Mock<IResponse<Basket?>>();
             response.Setup(r => r.Value).Returns(new Basket(Consumer: GetClientNoId(), Items: []));
             response.Setup(r => r.IsError).Returns(false);
-            //_mockRepository.Setup(repo => repo.Get(It.IsAny<int>())).Returns(response.Object!);
-            //_mockRepository.Setup(repo => repo.GetAsync(It.IsAny<int>()))!.ReturnsAsync(response.Object!);
 
             var frontendRepository = new Mock<IFrontendRepository<Basket>>();
             frontendRepository.Setup(r => r.SaveAsync(It.IsAny<Basket>())).ReturnsAsync(response.Object!);
@@ -118,8 +114,6 @@ namespace ShopApp.Core.Logic.Tests.BLoC.Baskets
             var response = new Mock<IResponse<Basket?>>();
             response.Setup(r => r.Value).Returns(new Basket(Consumer: GetClientWithId(), Items: []));
             response.Setup(r => r.IsError).Returns(false);
-            //_mockRepository.Setup(repo => repo.Get(It.IsAny<int>())).Returns(response.Object!);
-            //_mockRepository.Setup(repo => repo.GetAsync(It.IsAny<int>()))!.ReturnsAsync(response.Object!);
 
             var frontendRepository = new Mock<IFrontendRepository<Basket>>();
             frontendRepository.Setup(r => r.DeleteAsync(It.IsAny<int>())).ReturnsAsync(response.Object!);
@@ -145,8 +139,6 @@ namespace ShopApp.Core.Logic.Tests.BLoC.Baskets
             var response = new Mock<IResponse<Basket?>>();
             response.Setup(r => r.Value).Returns(new Basket(Consumer: GetClientNoId(), Items: []));
             response.Setup(r => r.IsError).Returns(false);
-            //_mockRepository.Setup(repo => repo.Get(It.IsAny<int>())).Returns(response.Object!);
-            //_mockRepository.Setup(repo => repo.GetAsync(It.IsAny<int>()))!.ReturnsAsync(response.Object!);
 
             var frontendRepository = new Mock<IFrontendRepository<Basket>>();
             frontendRepository.Setup(r => r.DeleteAsync(It.IsAny<int>())).ReturnsAsync(response.Object!);
@@ -161,6 +153,6 @@ namespace ShopApp.Core.Logic.Tests.BLoC.Baskets
             Assert.IsNull(result);
         }
 
-       
+
     }
 }
